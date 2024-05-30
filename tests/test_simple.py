@@ -5,7 +5,7 @@ from onnx import TensorProto, helper
 
 
 def test_exp():
-    input = np.random.uniform(-1, 1, size=(3, 255, 255)).astype(np.float32)
+    input = np.random.uniform(-1, 1, size=(3, 256, 256)).astype(np.float32)
 
     graph = helper.make_graph(
         nodes=[helper.make_node("Exp", ["input"], ["output"])],
