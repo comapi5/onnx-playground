@@ -1,15 +1,22 @@
+import functools
+
 import numpy as np
 import onnx
 import onnxruntime
 from onnx import TensorProto, helper
 
 
-def test_abs():
-    input = np.random.uniform(-100, 100, size=(3, 256, 256)).astype(np.float32)
+def _test_element_wise_operator(
+    input_shape,
+    operator_name,
+    np_func,
+    np_testing_function,
+):
+    input = np.random.uniform(-10, 10, size=input_shape).astype(np.float32)
 
     graph = helper.make_graph(
-        nodes=[helper.make_node("Abs", ["input"], ["output"])],
-        name="test_abs",
+        nodes=[helper.make_node(operator_name.capitalize(), ["input"], ["output"])],
+        name=f"test_{operator_name.lower()}",
         inputs=[helper.make_tensor_value_info("input", TensorProto.FLOAT, input.shape)],
         outputs=[
             helper.make_tensor_value_info("output", TensorProto.FLOAT, input.shape)
@@ -21,28 +28,24 @@ def test_abs():
     session = onnxruntime.InferenceSession(model.SerializeToString())
 
     ort_output = session.run(None, {"input": input})[0]
-    np_output = np.abs(input)
+    np_output = np_func(input)
 
-    np.testing.assert_equal(ort_output, np_output)
+    np_testing_function(ort_output, np_output)
+
+
+def test_abs():
+    _test_element_wise_operator(
+        input_shape=(3, 256, 256),
+        operator_name="Abs",
+        np_func=np.abs,
+        np_testing_function=np.testing.assert_equal,
+    )
 
 
 def test_exp():
-    input = np.random.uniform(-1, 1, size=(3, 256, 256)).astype(np.float32)
-
-    graph = helper.make_graph(
-        nodes=[helper.make_node("Exp", ["input"], ["output"])],
-        name="test_exp",
-        inputs=[helper.make_tensor_value_info("input", TensorProto.FLOAT, input.shape)],
-        outputs=[
-            helper.make_tensor_value_info("output", TensorProto.FLOAT, input.shape)
-        ],
+    _test_element_wise_operator(
+        input_shape=(3, 256, 256),
+        operator_name="Exp",
+        np_func=np.exp,
+        np_testing_function=functools.partial(np.testing.assert_allclose, rtol=2e-07),
     )
-
-    model = helper.make_model(graph)
-
-    session = onnxruntime.InferenceSession(model.SerializeToString())
-
-    ort_output = session.run(None, {"input": input})[0]
-    np_output = np.exp(input)
-
-    np.testing.assert_allclose(ort_output, np_output, rtol=2e-07)
