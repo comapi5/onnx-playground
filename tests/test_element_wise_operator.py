@@ -42,6 +42,15 @@ def test_abs():
     )
 
 
+def test_acos():
+    _test_element_wise_operator(
+        input_shape=(3, 256, 256),
+        operator_name="Acos",
+        np_func=np.arccos,
+        np_testing_function=np.testing.assert_equal,
+    )
+
+
 def test_exp():
     _test_element_wise_operator(
         input_shape=(3, 256, 256),
