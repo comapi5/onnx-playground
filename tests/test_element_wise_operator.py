@@ -10,9 +10,11 @@ def _test_element_wise_operator(
     operator_name,
     np_func,
     input_shape=(3, 256, 256),
+    input_min=-1.0,
+    input_max=1.0,
     np_testing_function=np.testing.assert_equal,
 ):
-    input = np.random.uniform(-10, 10, size=input_shape).astype(np.float32)
+    input = np.random.uniform(input_min, input_max, size=input_shape).astype(np.float32)
 
     graph = helper.make_graph(
         nodes=[helper.make_node(operator_name.capitalize(), ["input"], ["output"])],
@@ -50,6 +52,8 @@ def test_acos():
 def test_acosh():
     _test_element_wise_operator(
         operator_name="Acosh",
+        input_min=1,
+        input_max=10,
         np_func=np.arccosh,
     )
 
