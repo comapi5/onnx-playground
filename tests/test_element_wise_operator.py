@@ -69,6 +69,15 @@ def test_asin():
     )
 
 
+def test_asinh():
+    _test_element_wise_operator(
+        input_shape=(3, 256, 256),
+        operator_name="Asinh",
+        np_func=np.arcsinh,
+        np_testing_function=np.testing.assert_equal,
+    )
+
+
 def test_exp():
     _test_element_wise_operator(
         input_shape=(3, 256, 256),
