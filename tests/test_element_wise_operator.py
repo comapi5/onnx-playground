@@ -7,9 +7,9 @@ from onnx import TensorProto, helper
 
 
 def _test_element_wise_operator(
-    input_shape,
     operator_name,
     np_func,
+    input_shape=(3, 256, 256),
     np_testing_function=np.testing.assert_equal,
 ):
     input = np.random.uniform(-10, 10, size=input_shape).astype(np.float32)
@@ -35,7 +35,6 @@ def _test_element_wise_operator(
 
 def test_abs():
     _test_element_wise_operator(
-        input_shape=(3, 256, 256),
         operator_name="Abs",
         np_func=np.abs,
     )
@@ -43,7 +42,6 @@ def test_abs():
 
 def test_acos():
     _test_element_wise_operator(
-        input_shape=(3, 256, 256),
         operator_name="Acos",
         np_func=np.arccos,
     )
@@ -51,7 +49,6 @@ def test_acos():
 
 def test_acosh():
     _test_element_wise_operator(
-        input_shape=(3, 256, 256),
         operator_name="Acosh",
         np_func=np.arccosh,
     )
@@ -59,7 +56,6 @@ def test_acosh():
 
 def test_asin():
     _test_element_wise_operator(
-        input_shape=(3, 256, 256),
         operator_name="Asin",
         np_func=np.arcsin,
     )
@@ -67,7 +63,6 @@ def test_asin():
 
 def test_asinh():
     _test_element_wise_operator(
-        input_shape=(3, 256, 256),
         operator_name="Asinh",
         np_func=np.arcsinh,
     )
@@ -75,7 +70,6 @@ def test_asinh():
 
 def test_exp():
     _test_element_wise_operator(
-        input_shape=(3, 256, 256),
         operator_name="Exp",
         np_func=np.exp,
         np_testing_function=functools.partial(np.testing.assert_allclose, rtol=2e-07),
