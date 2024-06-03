@@ -60,6 +60,15 @@ def test_acosh():
     )
 
 
+def test_asin():
+    _test_element_wise_operator(
+        input_shape=(3, 256, 256),
+        operator_name="Asin",
+        np_func=np.arcsin,
+        np_testing_function=np.testing.assert_equal,
+    )
+
+
 def test_exp():
     _test_element_wise_operator(
         input_shape=(3, 256, 256),
