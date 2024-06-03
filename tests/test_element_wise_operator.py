@@ -10,7 +10,7 @@ def _test_element_wise_operator(
     input_shape,
     operator_name,
     np_func,
-    np_testing_function,
+    np_testing_function=np.testing.assert_equal,
 ):
     input = np.random.uniform(-10, 10, size=input_shape).astype(np.float32)
 
@@ -38,7 +38,6 @@ def test_abs():
         input_shape=(3, 256, 256),
         operator_name="Abs",
         np_func=np.abs,
-        np_testing_function=np.testing.assert_equal,
     )
 
 
@@ -47,7 +46,6 @@ def test_acos():
         input_shape=(3, 256, 256),
         operator_name="Acos",
         np_func=np.arccos,
-        np_testing_function=np.testing.assert_equal,
     )
 
 
@@ -56,7 +54,6 @@ def test_acosh():
         input_shape=(3, 256, 256),
         operator_name="Acosh",
         np_func=np.arccosh,
-        np_testing_function=np.testing.assert_equal,
     )
 
 
@@ -65,7 +62,6 @@ def test_asin():
         input_shape=(3, 256, 256),
         operator_name="Asin",
         np_func=np.arcsin,
-        np_testing_function=np.testing.assert_equal,
     )
 
 
@@ -74,7 +70,6 @@ def test_asinh():
         input_shape=(3, 256, 256),
         operator_name="Asinh",
         np_func=np.arcsinh,
-        np_testing_function=np.testing.assert_equal,
     )
 
 
