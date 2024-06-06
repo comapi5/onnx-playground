@@ -72,6 +72,13 @@ def test_asinh():
     )
 
 
+def test_atan():
+    _test_element_wise_operator(
+        operator_name="Atan",
+        np_func=np.arctan,
+    )
+
+
 def test_exp():
     _test_element_wise_operator(
         operator_name="Exp",
