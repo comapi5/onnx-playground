@@ -86,6 +86,13 @@ def test_atanh():
     )
 
 
+def test_ceil():
+    _test_element_wise_operator(
+        operator_name="Ceil",
+        np_func=np.ceil,
+    )
+
+
 def test_exp():
     _test_element_wise_operator(
         operator_name="Exp",
