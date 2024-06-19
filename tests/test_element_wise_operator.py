@@ -110,6 +110,14 @@ def test_celu():
     )
 
 
+def test_cos():
+    _test_element_wise_operator(
+        operator_name="Cos",
+        np_func=np.cos,
+        np_testing_function=functools.partial(np.testing.assert_allclose, rtol=1e-06),
+    )
+
+
 def test_exp():
     _test_element_wise_operator(
         operator_name="Exp",
