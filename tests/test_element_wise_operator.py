@@ -118,6 +118,13 @@ def test_cos():
     )
 
 
+def test_cosh():
+    _test_element_wise_operator(
+        operator_name="Cosh",
+        np_func=np.cosh,
+    )
+
+
 def test_exp():
     _test_element_wise_operator(
         operator_name="Exp",
