@@ -4,6 +4,7 @@ import numpy as np
 import onnx
 import onnxruntime as ort
 import PIL
+import pytest
 import requests
 import torch
 import torchvision
@@ -52,6 +53,7 @@ def predict_onnx_model(image, model):
     return predicted_class.item()
 
 
+@pytest.mark.dependency()
 def test_resnet18_from_torch():
     # Download and preprocess image
     image = download_image()
@@ -76,6 +78,11 @@ def test_resnet18_from_torch():
 
     # Compare predictions
     assert torch_output == onnx_output, "Torch and ONNX predictions do not match!"
+
+
+@pytest.mark.dependency(depends=["test_resnet18_from_torch"])
+def test_resnet18_quant():
+    onnx_model = onnx.load("resnet18.onnx")
 
 
 if __name__ == "__main__":
