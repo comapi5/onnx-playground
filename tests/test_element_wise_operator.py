@@ -125,6 +125,17 @@ def test_cosh():
     )
 
 
+def test_elu():
+    def np_elu(x, alpha=1.0):
+        return np.where(x > 0, x, alpha * (np.exp(x) - 1))
+
+    _test_element_wise_operator(
+        operator_name="Elu",
+        attribute={"alpha": 1.0},
+        np_func=np_elu,
+    )
+
+
 def test_exp():
     _test_element_wise_operator(
         operator_name="Exp",
