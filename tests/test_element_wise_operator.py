@@ -136,6 +136,33 @@ def test_elu():
     )
 
 
+def erf(x):
+    a1, a2, a3, a4, a5 = (
+        0.254829592,
+        -0.284496736,
+        1.421413741,
+        -1.453152027,
+        1.061405429,
+    )
+    p = 0.3275911
+
+    sign = np.sign(x)
+    x = np.abs(x)
+
+    t = 1.0 / (1.0 + p * x)
+    y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * np.exp(-x * x)
+
+    return sign * y
+
+
+def test_erf():
+    _test_element_wise_operator(
+        operator_name="Erf",
+        np_func=erf,
+        np_testing_function=functools.partial(np.testing.assert_allclose, rtol=0.1),
+    )
+
+
 def test_exp():
     _test_element_wise_operator(
         operator_name="Exp",
