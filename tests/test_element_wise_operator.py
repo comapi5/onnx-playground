@@ -169,3 +169,10 @@ def test_exp():
         np_func=np.exp,
         np_testing_function=functools.partial(np.testing.assert_allclose, rtol=2e-07),
     )
+
+
+def test_floor():
+    _test_element_wise_operator(
+        operator_name="Floor",
+        np_func=np.floor,
+    )
