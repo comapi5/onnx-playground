@@ -137,7 +137,7 @@ def test_elu():
     )
 
 
-def erf(x):
+def np_erf(x):
     a1, a2, a3, a4, a5 = (
         0.254829592,
         -0.284496736,
@@ -159,7 +159,7 @@ def erf(x):
 def test_erf():
     _test_element_wise_operator(
         operator_name="Erf",
-        np_func=erf,
+        np_func=np_erf,
         np_testing_function=functools.partial(np.testing.assert_allclose, rtol=0.1),
     )
 
@@ -181,7 +181,7 @@ def test_floor():
 
 def np_gelu(x, approximate="none"):
     if approximate == "none":
-        return 0.5 * x * (1 + erf(x / np.sqrt(2)))
+        return 0.5 * x * (1 + np_erf(x / np.sqrt(2)))
     elif approximate == "tanh":
         return (
             0.5
