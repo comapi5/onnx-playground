@@ -3,6 +3,7 @@ import functools
 import numpy as np
 import onnx
 import onnxruntime
+import pytest
 from onnx import TensorProto, helper
 
 
@@ -175,4 +176,27 @@ def test_floor():
     _test_element_wise_operator(
         operator_name="Floor",
         np_func=np.floor,
+    )
+
+
+def np_gelu(x, approximate="none"):
+    if approximate == "none":
+        return 0.5 * x * (1 + erf(x / np.sqrt(2)))
+    elif approximate == "tanh":
+        return (
+            0.5
+            * x
+            * (1 + np.tanh(np.sqrt(2 / np.pi) * (x + 0.044715 * np.power(x, 3))))
+        )
+    else:
+        raise ValueError("Invalid value for 'approximate'. Choose 'none' or 'tanh'.")
+
+
+@pytest.mark.parametrize("approximate", ["none", "tanh"])
+def test_gelu(approximate):
+    _test_element_wise_operator(
+        operator_name="Gelu",
+        np_func=np_gelu,
+        attribute={"approximate": approximate},
+        np_testing_function=functools.partial(np.testing.assert_allclose, rtol=1e-06),
     )
