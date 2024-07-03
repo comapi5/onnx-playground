@@ -19,11 +19,7 @@ def _test_element_wise_operator(
     input = np.random.uniform(input_min, input_max, size=input_shape).astype(np.float32)
 
     graph = helper.make_graph(
-        nodes=[
-            helper.make_node(
-                operator_name.capitalize(), ["input"], ["output"], **attribute
-            )
-        ],
+        nodes=[helper.make_node(operator_name, ["input"], ["output"], **attribute)],
         name=f"test_{operator_name.lower()}",
         inputs=[helper.make_tensor_value_info("input", TensorProto.FLOAT, input.shape)],
         outputs=[
@@ -199,4 +195,15 @@ def test_gelu(approximate):
         np_func=np_gelu,
         attribute={"approximate": approximate},
         np_testing_function=functools.partial(np.testing.assert_allclose, rtol=1e-06),
+    )
+
+
+def np_hard_sigmoid(x, alpha=0.2, beta=0.5):
+    return np.maximum(0, np.minimum(1, alpha * x + beta))
+
+
+def test_hard_sigmoid():
+    _test_element_wise_operator(
+        operator_name="HardSigmoid",
+        np_func=np_hard_sigmoid,
     )
