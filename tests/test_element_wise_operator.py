@@ -207,3 +207,12 @@ def test_hard_sigmoid():
         operator_name="HardSigmoid",
         np_func=np_hard_sigmoid,
     )
+
+
+def test_log():
+    _test_element_wise_operator(
+        operator_name="Log",
+        np_func=np.log,
+        input_min=0.01,
+        np_testing_function=functools.partial(np.testing.assert_allclose, rtol=1e-06),
+    )
