@@ -216,3 +216,10 @@ def test_log():
         input_min=0.01,
         np_testing_function=functools.partial(np.testing.assert_allclose, rtol=1e-06),
     )
+
+
+def test_tan():
+    _test_element_wise_operator(
+        operator_name="Tan",
+        np_func=np.tan,
+    )
