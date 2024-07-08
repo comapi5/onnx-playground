@@ -223,3 +223,11 @@ def test_tan():
         operator_name="Tan",
         np_func=np.tan,
     )
+
+
+def test_tanh():
+    _test_element_wise_operator(
+        operator_name="Tanh",
+        np_func=np.tanh,
+        np_testing_function=functools.partial(np.testing.assert_allclose, rtol=1e-06),
+    )
