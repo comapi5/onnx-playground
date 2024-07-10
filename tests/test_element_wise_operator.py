@@ -218,6 +218,19 @@ def test_log():
     )
 
 
+def np_thresholded_relu(x, alpha=1.0):
+    return np.where(x > alpha, x, 0)
+
+
+@pytest.mark.parametrize("alpha", [1.0, 2.0])
+def test_thresholded_relu(alpha):
+    _test_element_wise_operator(
+        operator_name="ThresholdedRelu",
+        np_func=np_thresholded_relu,
+        attribute={"alpha": alpha},
+    )
+
+
 def test_tan():
     _test_element_wise_operator(
         operator_name="Tan",
