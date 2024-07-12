@@ -218,6 +218,18 @@ def test_log():
     )
 
 
+def np_softsign(x):
+    return x / (1 + np.abs(x))
+
+
+def test_softsign():
+    _test_element_wise_operator(
+        operator_name="Softsign",
+        np_func=np_softsign,
+        np_testing_function=functools.partial(np.testing.assert_allclose, rtol=1e-06),
+    )
+
+
 def test_sqrt():
     _test_element_wise_operator(
         operator_name="Sqrt",
