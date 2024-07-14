@@ -218,6 +218,18 @@ def test_log():
     )
 
 
+def np_softplus(x):
+    return np.log1p(np.exp(x))
+
+
+def test_softplus():
+    _test_element_wise_operator(
+        operator_name="Softplus",
+        np_func=np_softplus,
+        np_testing_function=functools.partial(np.testing.assert_allclose, rtol=1e-06),
+    )
+
+
 def np_softsign(x):
     return x / (1 + np.abs(x))
 
