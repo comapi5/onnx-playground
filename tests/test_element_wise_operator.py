@@ -218,6 +218,18 @@ def test_log():
     )
 
 
+def np_mish(x):
+    return x * np.tanh(np.log1p(np.exp(x)))
+
+
+def test_mish():
+    _test_element_wise_operator(
+        operator_name="Mish",
+        np_func=np_mish,
+        np_testing_function=functools.partial(np.testing.assert_allclose, rtol=1e-06),
+    )
+
+
 def np_softplus(x):
     return np.log1p(np.exp(x))
 
