@@ -230,6 +230,17 @@ def test_mish():
     )
 
 
+def np_relu(x):
+    return np.maximum(0, x)
+
+
+def test_relu():
+    _test_element_wise_operator(
+        operator_name="Relu",
+        np_func=np_relu,
+    )
+
+
 def np_softplus(x):
     return np.log1p(np.exp(x))
 
