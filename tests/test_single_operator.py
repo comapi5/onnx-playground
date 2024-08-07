@@ -93,6 +93,7 @@ def np_thresholded_relu(x, alpha=1.0):
         ("Log", np.log, 0.01, 5, {}),  # 0 < x < inf
         ("Mish", np_mish, -5, 5, {}),
         ("Relu", np_relu, -5, 5, {}),
+        ("Sign", np.sign, -5, 5, {}),
         ("Softplus", np_softplus, -5, 5, {}),
         ("Softsign", np_softsign, -5, 5, {}),
         ("Sqrt", np.sqrt, 0, 5, {}),  # 0 <= x < inf
