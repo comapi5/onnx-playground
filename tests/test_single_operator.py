@@ -95,6 +95,7 @@ def np_thresholded_relu(x, alpha=1.0):
         ("Relu", np_relu, -5, 5, {}),
         ("Sign", np.sign, -5, 5, {}),
         ("Sin", np.sin, -5, 5, {}),
+        ("Sinh", np.sinh, -1, 1, {}),  # -1 <= x <= 1
         ("Softplus", np_softplus, -5, 5, {}),
         ("Softsign", np_softsign, -5, 5, {}),
         ("Sqrt", np.sqrt, 0, 5, {}),  # 0 <= x < inf
