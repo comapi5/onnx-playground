@@ -83,7 +83,7 @@ def np_thresholded_relu(x, alpha=1.0):
         ("Ceil", np.ceil, -5, 5, {}),
         ("Celu", np_celu, -5, 5, {}),
         ("Cos", np.cos, -5, 5, {}),
-        ("Cosh", np.cosh, -1, 1, {}),  # -1 <= x <=s 1
+        ("Cosh", np.cosh, -1, 1, {}),  # -1 <= x <= 1
         ("Elu", np_elu, -5, 5, {}),
         ("Erf", np_erf, -5, 5, {}),
         ("Exp", np.exp, -5, 5, {}),
