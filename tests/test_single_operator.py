@@ -119,6 +119,7 @@ def test_element_wise_operator(
         ],
     )
     model = helper.make_model(graph)
+    model.opset_import[0].version = 20
 
     session = onnxruntime.InferenceSession(model.SerializeToString())
 
