@@ -162,7 +162,10 @@ def test_element_wise_binary_operator(operator_name, np_function):
 
 @pytest.mark.parametrize(
     "operator_name, np_function",
-    [("And", np.logical_and)],
+    [
+        ("And", np.logical_and),
+        ("Or", np.logical_or),
+    ],
 )
 def test_element_wise_binary_logical_operator(operator_name, np_function):
     input_shape = (3, 256, 256)
