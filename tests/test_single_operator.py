@@ -188,4 +188,4 @@ def test_element_wise_binary_logical_operator(operator_name, np_function):
     ort_output = session.run(None, {"input_1": inp_1, "input_2": inp_2})[0]
     np_output = np_function(inp_1, inp_2)
 
-    np.testing.assert_allclose(ort_output, np_output, rtol=0.1)
+    np.testing.assert_equal(ort_output, np_output)
