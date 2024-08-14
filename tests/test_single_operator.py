@@ -158,3 +158,34 @@ def test_element_wise_binary_operator(operator_name, np_function):
     np_output = np_function(inp_1, inp_2)
 
     np.testing.assert_allclose(ort_output, np_output, rtol=0.1)
+
+
+@pytest.mark.parametrize(
+    "operator_name, np_function",
+    [("And", np.logical_and)],
+)
+def test_element_wise_binary_logical_operator(operator_name, np_function):
+    input_shape = (3, 256, 256)
+    inp_1 = np.random.uniform(0, 1, size=input_shape).astype(bool)
+    inp_2 = np.random.uniform(0, 1, size=input_shape).astype(bool)
+
+    graph = helper.make_graph(
+        nodes=[helper.make_node(operator_name, ["input_1", "input_2"], ["output"])],
+        name=f"test_{operator_name.lower()}",
+        inputs=[
+            helper.make_tensor_value_info("input_1", TensorProto.BOOL, input_shape),
+            helper.make_tensor_value_info("input_2", TensorProto.BOOL, input_shape),
+        ],
+        outputs=[
+            helper.make_tensor_value_info("output", TensorProto.BOOL, input_shape)
+        ],
+    )
+    model = helper.make_model(graph)
+    model.opset_import[0].version = 20
+
+    session = onnxruntime.InferenceSession(model.SerializeToString())
+
+    ort_output = session.run(None, {"input_1": inp_1, "input_2": inp_2})[0]
+    np_output = np_function(inp_1, inp_2)
+
+    np.testing.assert_allclose(ort_output, np_output, rtol=0.1)
