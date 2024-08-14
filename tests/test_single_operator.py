@@ -165,6 +165,7 @@ def test_element_wise_binary_operator(operator_name, np_function):
     [
         ("And", np.logical_and),
         ("Or", np.logical_or),
+        ("Xor", np.logical_xor),
     ],
 )
 def test_element_wise_binary_logical_operator(operator_name, np_function):
