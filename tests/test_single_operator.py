@@ -131,7 +131,10 @@ def test_element_wise_operator(
 
 @pytest.mark.parametrize(
     "operator_name, np_function",
-    [("Add", np.add)],
+    [
+        ("Add", np.add),
+        ("Div", np.divide),
+    ],
 )
 def test_element_wise_binary_operator(operator_name, np_function):
     input_shape = (3, 256, 256)
