@@ -49,6 +49,10 @@ def np_hard_sigmoid(x, alpha=0.2, beta=0.5):
     return np.maximum(0, np.minimum(1, alpha * x + beta))
 
 
+def np_leaky_relu(x, alpha=0.01):
+    return np.where(x >= 0, x, alpha * x)
+
+
 def np_mish(x):
     return x * np.tanh(np.log1p(np.exp(x)))
 
@@ -90,6 +94,7 @@ def np_thresholded_relu(x, alpha=1.0):
         ("Floor", np.floor, -5, 5, {}),
         ("Gelu", np_gelu, -5, 5, {}),
         ("HardSigmoid", np_hard_sigmoid, -5, 5, {}),
+        ("LeakyRelu", np_leaky_relu, -5, 5, {}),
         ("Log", np.log, 0.01, 5, {}),  # 0 < x < inf
         ("Mish", np_mish, -5, 5, {}),
         ("Relu", np_relu, -5, 5, {}),
