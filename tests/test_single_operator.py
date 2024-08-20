@@ -139,6 +139,7 @@ def test_element_wise_operator(
     [
         ("Add", np.add),
         ("Div", np.divide),
+        ("Pow", np.power),
     ],
 )
 def test_element_wise_binary_operator(operator_name, np_function):
