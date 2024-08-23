@@ -119,12 +119,12 @@ def test_element_wise_operator(
         nodes=[helper.make_node(operator_name, ["input"], ["output"], **attribute)],
         name=f"test_{operator_name.lower()}",
         inputs=[helper.make_tensor_value_info("input", TensorProto.FLOAT, input_shape)],
-        outputs=[
-            helper.make_tensor_value_info("output", TensorProto.FLOAT, input_shape)
-        ],
+        outputs=[helper.make_tensor_value_info("output", TensorProto.FLOAT, None)],
     )
     model = helper.make_model(graph)
     model.opset_import[0].version = 20
+
+    model = onnx.shape_inference.infer_shapes(model)
 
     session = onnxruntime.InferenceSession(model.SerializeToString())
 
@@ -154,12 +154,12 @@ def test_element_wise_binary_operator(operator_name, np_function):
             helper.make_tensor_value_info("input_1", TensorProto.FLOAT, input_shape),
             helper.make_tensor_value_info("input_2", TensorProto.FLOAT, input_shape),
         ],
-        outputs=[
-            helper.make_tensor_value_info("output", TensorProto.FLOAT, input_shape)
-        ],
+        outputs=[helper.make_tensor_value_info("output", TensorProto.FLOAT, None)],
     )
     model = helper.make_model(graph)
     model.opset_import[0].version = 20
+
+    model = onnx.shape_inference.infer_shapes(model)
 
     session = onnxruntime.InferenceSession(model.SerializeToString())
 
@@ -190,12 +190,12 @@ def test_element_wise_binary_logical_operator(operator_name, np_function):
             helper.make_tensor_value_info("input_1", TensorProto.BOOL, input_shape),
             helper.make_tensor_value_info("input_2", TensorProto.BOOL, input_shape),
         ],
-        outputs=[
-            helper.make_tensor_value_info("output", TensorProto.BOOL, input_shape)
-        ],
+        outputs=[helper.make_tensor_value_info("output", TensorProto.BOOL, None)],
     )
     model = helper.make_model(graph)
     model.opset_import[0].version = 20
+
+    model = onnx.shape_inference.infer_shapes(model)
 
     session = onnxruntime.InferenceSession(model.SerializeToString())
 
